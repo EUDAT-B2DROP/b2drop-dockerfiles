@@ -1,14 +1,15 @@
-FROM       fedora:21
-MAINTAINER http://fedoraproject.org/wiki/Cloud
+FROM       fedora:22
+MAINTAINER Mikael Karlsson <i8myshoes@gmail.com>
 
 # Perform updates
-RUN yum -y update && yum clean all
+RUN dnf -y update && dnf clean all
 
-# Install owncloud owncloud-httpd owncloud-sqlite rpms
-RUN yum install -y owncloud{,-httpd,-sqlite} && yum clean all
+RUN dnf install -y owncloud{,-httpd,-sqlite} && dnf clean all
+# RUN dnf install -y owncloud{,-httpd,-postgresql} && dnf clean all
+# RUN dnf install -y owncloud{,-nginx,-mysql} && dnf clean all
 
 # Install SSL module and force SSL to be used by owncloud
-RUN yum install -y mod_ssl && yum clean all
+RUN dnf install -y mod_ssl && dnf clean all
 ADD ./forcessl.config.php /etc/owncloud/forcessl.config.php
 
 # Allow connections from everywhere
@@ -18,4 +19,3 @@ RUN ln -s /etc/httpd/conf.d/owncloud-access.conf.avail /etc/httpd/conf.d/z-owncl
 EXPOSE 443
 ENTRYPOINT ["/usr/sbin/httpd"]
 CMD ["-D", "FOREGROUND"]
-

@@ -1,0 +1,9 @@
+[submodule "b2drop-core"]
+	path = b2drop-core
+	url = https://github.com/EUDAT-B2DROP/b2drop-core.git
+[submodule "b2share-bridge"]
+	path = b2share-bridge
+	url = https://github.com/EUDAT-B2DROP/b2share-bridge.git
+[submodule "apps"]
+	path = apps
+	url = https://github.com/owncloud/apps.git

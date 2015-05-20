@@ -1,0 +1,12 @@
+b2drop:
+  # build: .
+  image: b2drop:latest
+  hostname: owncloud
+  domainname: localdomain
+  ports:
+    - "22"
+    - "80"
+    - "443"
+  volumes:
+    - ./b2share-bridge:/var/lib/owncloud/apps/b2share-bridge
+    - ./b2drop-core:/usr/share/owncloud/themes/eudat

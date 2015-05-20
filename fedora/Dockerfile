@@ -15,6 +15,9 @@ ADD ./forcessl.config.php /etc/owncloud/forcessl.config.php
 # Allow connections from everywhere
 RUN ln -s /etc/httpd/conf.d/owncloud-access.conf.avail /etc/httpd/conf.d/z-owncloud-access.conf
 
+# Add EUDAT specific configurations
+ADD ./eudat.config.php /etc/owncloud/eudat.config.php
+
 # Expose port 443 and set httpd as our entrypoint
 EXPOSE 443
 ENTRYPOINT ["/usr/sbin/httpd"]

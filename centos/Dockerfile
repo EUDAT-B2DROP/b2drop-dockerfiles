@@ -23,6 +23,9 @@ ADD ./forcessl.config.php /var/www/html/owncloud/config/forcessl.config.php
 # Add EUDAT specific configurations
 ADD ./eudat.config.php /var/www/html/owncloud/config/eudat.config.php
 
+# Change ownership
+RUN chown -R apache:apache /var/www/html/owncloud
+
 # Expose volume points
 VOLUME /var/www/html/owncloud/data
 VOLUME /srv/certs

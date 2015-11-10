@@ -26,6 +26,26 @@ ADD ./eudat.config.php /var/www/html/owncloud/config/eudat.config.php
 # Change ownership
 RUN chown -R apache:apache /var/www/html/owncloud
 
+# Configure Apache
+RUN echo "<h1>Oops!</h1>" > /var/www/html/index.html
+
+# Change certificate paths
+RUN sed -r -i \
+        -e '/^#?SSLCertificateFile/ { s/^#//; s;/.*;/srv/certs/server.crt; }' \
+        -e '/^#?SSLCertificateKeyFile/ { s/^#//; s;/.*;/srv/certs/server.key; }' \
+        -e '/^#?SSLCertificateChainFile/ { s/^#//; s;/.*;/srv/certs/server_ca.crt; }' /etc/httpd/conf.d/ssl.conf
+
+# Redirect / to /owncloud
+# RUN sed -r -i '/\/VirtualHost/ i RedirectMatch "^/$" "/owncloud/"' /etc/httpd/conf.d/ssl.conf
+
+# Change DocumentRoot
+RUN sed -r -i '/^#?DocumentRoot/ { s/^#//; s;".*;"/var/www/html/owncloud"; }' /etc/httpd/conf.d/ssl.conf
+
+# Rewrite requests to HTTPS
+RUN echo -e "\nRewriteEngine On\n\
+RewriteCond %{HTTPS} off\n\
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}" >> /etc/httpd/conf/httpd.conf
+
 # Expose volume points
 VOLUME /var/www/html/owncloud/data
 VOLUME /srv/certs

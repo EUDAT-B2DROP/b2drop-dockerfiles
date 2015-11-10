@@ -1,6 +1,6 @@
-b2drop-fedora:
-  # build: .
-  image: b2drop-fedora:latest
+fedora:
+  build: fedora
+  # image: b2drop-fedora:latest
   hostname: owncloud
   domainname: localdomain
   ports:
@@ -8,12 +8,12 @@ b2drop-fedora:
     - "80"
     - "443"
   volumes:
-    - ./b2share-bridge:/var/lib/owncloud/apps/b2share-bridge
-    - ./b2drop-core:/usr/share/owncloud/themes/eudat
+    - "./b2share-bridge:/var/lib/owncloud/apps/b2share-bridge"
+    - "./b2drop-core:/usr/share/owncloud/themes/eudat"
 
-b2drop-centos:
-  # build: .
-  image: b2drop-centos:latest
+centos:
+  build: centos
+  # image: b2drop-centos:latest
   hostname: owncloud
   domainname: localdomain
   ports:
@@ -21,5 +21,5 @@ b2drop-centos:
     - "80"
     - "443"
   volumes:
-    - ./b2share-bridge:/var/www/html/owncloud/apps/b2share-bridge
-    - ./b2drop-core:/var/www/html/owncloud/themes/b2drop
+    - "./b2share-bridge:/var/www/html/owncloud/apps/b2share-bridge"
+    - "./b2drop-core:/var/www/html/owncloud/themes/b2drop"

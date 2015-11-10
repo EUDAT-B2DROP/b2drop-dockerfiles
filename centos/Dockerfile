@@ -4,13 +4,17 @@ MAINTAINER Mikael Karlsson <i8myshoes@gmail.com>
 # Perform updates
 RUN yum -y update && yum clean all
 
-# Install repo
+# Install EPEL
+RUN yum -y install epel-release && yum clean all
+
+# Install ownCloud repo
 ADD http://download.opensuse.org/repositories/isv:ownCloud:community/CentOS_7/isv:ownCloud:community.repo /etc/yum.repos.d/
 
-RUN yum install -y owncloud && yum clean all
+# Install ownCloud and dependencies
+RUN yum -y install owncloud php-mysql && yum clean all
 
 # Install SSL module and force SSL to be used by owncloud
-RUN yum install -y mod_ssl && yum clean all
+RUN yum -y install mod_ssl && yum clean all
 ADD ./forcessl.config.php /var/www/html/owncloud/config/forcessl.config.php
 
 # Allow connections from everywhere

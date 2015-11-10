@@ -23,6 +23,10 @@ ADD ./forcessl.config.php /var/www/html/owncloud/config/forcessl.config.php
 # Add EUDAT specific configurations
 ADD ./eudat.config.php /var/www/html/owncloud/config/eudat.config.php
 
+# Expose volume points
+VOLUME /var/www/html/owncloud/data
+VOLUME /srv/certs
+
 # Expose port 443 and set httpd as our entrypoint
 EXPOSE 443
 ENTRYPOINT ["/usr/sbin/httpd"]

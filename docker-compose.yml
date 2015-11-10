@@ -10,6 +10,8 @@ fedora:
   volumes:
     - "./b2share-bridge:/var/lib/owncloud/apps/b2share-bridge"
     - "./b2drop-core:/usr/share/owncloud/themes/eudat"
+  links:
+    - mariadb:db
 
 centos:
   build: centos
@@ -23,3 +25,17 @@ centos:
   volumes:
     - "./b2share-bridge:/var/www/html/owncloud/apps/b2share-bridge"
     - "./b2drop-core:/var/www/html/owncloud/themes/b2drop"
+  links:
+    - mariadb:db
+
+mariadb:
+  image: centos/mariadb:latest
+  hostname: mariadb
+  domainname: localdomain
+  expose:
+    - "3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=TopSecretPassWord
+    - MYSQL_DATABASE=owncloud
+    - MYSQL_USER=dbuser
+    - MYSQL_PASSWORD=dbpass

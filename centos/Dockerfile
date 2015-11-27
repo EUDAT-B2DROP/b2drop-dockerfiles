@@ -1,3 +1,7 @@
+# ownCloud, w/ Apache, using MySQL on CentOS 7
+#
+# VERSION 0.6
+
 FROM       centos:7
 MAINTAINER Mikael Karlsson <i8myshoes@gmail.com>
 
@@ -35,6 +39,15 @@ RUN sed -r -i \
         -e '/^#?SSLCertificateKeyFile/ { s/^#//; s;/.*;/srv/certs/server.key; }' \
         -e '/^#?SSLCertificateChainFile/ { s/^#//; s;/.*;/srv/certs/server_ca.crt; }' /etc/httpd/conf.d/ssl.conf
 
+# Disable SSLv3
+RUN sed -r -i '/^#?SSLProtocol/ { s/^#//; s/$/ -SSLv3/; }' /etc/httpd/conf.d/ssl.conf
+
+# Disable RC4
+RUN sed -r -i '/^SSLCipherSuite/ { s/$/:!RC4/; }' /etc/httpd/conf.d/ssl.conf
+
+# Disable TRACE
+RUN echo -e "\nTraceEnable off" >> /etc/httpd/conf.d/ssl.conf
+
 # Redirect / to /owncloud
 # RUN sed -r -i '/\/VirtualHost/ i RedirectMatch "^/$" "/owncloud/"' /etc/httpd/conf.d/ssl.conf
 
@@ -47,8 +60,8 @@ RewriteCond %{HTTPS} off\n\
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}" >> /etc/httpd/conf/httpd.conf
 
 # Expose volume points
-VOLUME /var/www/html/owncloud/data
 VOLUME /srv/certs
+VOLUME /var/www/html/owncloud/data
 
 # Expose port 443 and set httpd as our entrypoint
 EXPOSE 443

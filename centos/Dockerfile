@@ -59,7 +59,10 @@ RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}" >> /etc/httpd/conf/httpd.co
 VOLUME /srv/certs
 VOLUME /var/www/html/owncloud/data
 
-# Expose port 443 and set httpd as our entrypoint
+# Expose port 443
 EXPOSE 443
-ENTRYPOINT ["/usr/sbin/httpd"]
+
+# Set wrapper script as entrypoint
+ADD ./wrapper.sh /wrapper.sh
+ENTRYPOINT ["/wrapper.sh"]
 CMD ["-D", "FOREGROUND"]

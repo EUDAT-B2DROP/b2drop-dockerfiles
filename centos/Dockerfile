@@ -17,15 +17,11 @@ ADD http://download.opensuse.org/repositories/isv:ownCloud:community/CentOS_7/is
 # Install ownCloud and dependencies
 RUN yum -y install owncloud php-mysql && yum clean all
 
-# Install SSL module and force SSL to be used by owncloud
+# Install SSL module
 RUN yum -y install mod_ssl && yum clean all
-ADD ./forcessl.config.php /var/www/html/owncloud/config/forcessl.config.php
 
 # Allow connections from everywhere
 #RUN ln -s /etc/httpd/conf.d/owncloud-access.conf.avail /etc/httpd/conf.d/z-owncloud-access.conf
-
-# Add EUDAT specific configurations
-ADD ./eudat.config.php /var/www/html/owncloud/config/eudat.config.php
 
 # Change ownership
 RUN chown -R apache:apache /var/www/html/owncloud

@@ -11,8 +11,8 @@ RUN yum -y update && yum clean all
 # Install EPEL
 RUN yum -y install epel-release && yum clean all
 
-# Install ownCloud repo
-ADD http://download.opensuse.org/repositories/isv:ownCloud:community/CentOS_7/isv:ownCloud:community.repo /etc/yum.repos.d/
+# Install ownCloud 8.1 repo
+ADD http://download.opensuse.org/repositories/isv:ownCloud:community:8.1/CentOS_7/isv:ownCloud:community:8.1.repo /etc/yum.repos.d/
 
 # Install ownCloud and dependencies
 RUN yum -y install owncloud php-mysql && yum clean all

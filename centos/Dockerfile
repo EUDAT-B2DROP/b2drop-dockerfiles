@@ -11,6 +11,9 @@ RUN yum -y update && yum clean all
 # Install EPEL
 RUN yum -y install epel-release && yum clean all
 
+# Install IUS
+RUN yum -y install https://centos7.iuscommunity.org/ius-release.rpm && yum clean all
+
 # Install ownCloud 8.1 repo
 ADD http://download.opensuse.org/repositories/isv:ownCloud:community:8.1/CentOS_7/isv:ownCloud:community:8.1.repo /etc/yum.repos.d/
 

@@ -32,6 +32,9 @@ RUN yum -y install mod_ssl && yum clean all
 # Change ownership
 RUN chown -R apache:apache /var/www/html/owncloud
 
+# Configure ownCloud
+RUN sed -r -i '/upload_max_filesize|post_max_size/ { s;\w*$;50G; }' /var/www/html/owncloud/.htaccess
+
 # Configure Apache
 RUN echo "<h1>Oops!</h1>" > /var/www/html/index.html
 

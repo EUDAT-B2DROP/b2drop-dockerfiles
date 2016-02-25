@@ -53,6 +53,11 @@ RUN sed -r -i '/^SSLCipherSuite/ { s/$/:!RC4/; }' /etc/httpd/conf.d/ssl.conf
 # Disable TRACE
 RUN echo -e "\nTraceEnable off" >> /etc/httpd/conf.d/ssl.conf
 
+# Enable HSTS
+RUN sed -r -i '/<\/VirtualHost>/ i \  <IfModule mod_headers.c>\n\
+    Header always set Strict-Transport-Security "max-age=15768000; includeSubDomains; preload"\n\
+  </IfModule>' /etc/httpd/conf.d/ssl.conf
+
 # Redirect / to /owncloud
 # RUN sed -r -i '/\/VirtualHost/ i RedirectMatch "^/$" "/owncloud/"' /etc/httpd/conf.d/ssl.conf
 

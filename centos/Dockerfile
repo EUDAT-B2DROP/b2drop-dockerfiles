@@ -72,6 +72,17 @@ RUN echo -e "\nRewriteEngine On\n\
 RewriteCond %{HTTPS} off\n\
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}" >> /etc/httpd/conf/httpd.conf
 
+# Install Shibboleth repo
+ADD http://download.opensuse.org/repositories/security://shibboleth/CentOS_7/security:shibboleth.repo /etc/yum.repos.d/
+
+# Install Shibboleth
+RUN yum -y install shibboleth && yum clean all
+
+# Configure Shibboleth
+RUN sed -r -i '/^#?<\/?Location/ { s/^#//; }' /etc/httpd/conf.d/ssl.conf
+RUN sed -r -i '/<Location/ a\  AuthType shibboleth\n  Require shibboleth' /etc/httpd/conf.d/ssl.conf
+RUN sed -r -i '49,$ s/^/#/' /etc/httpd/conf.d/shib.conf
+
 # Expose volume points
 VOLUME /srv/certs
 VOLUME /var/www/html/owncloud/data

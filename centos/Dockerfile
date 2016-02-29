@@ -17,8 +17,8 @@ RUN yum -y install https://centos7.iuscommunity.org/ius-release.rpm && yum clean
 # Install PHP 5.6
 RUN yum -y install php56u php56u-mysqlnd && yum clean all
 
-# Install ownCloud 8.1 repo
-ADD http://download.opensuse.org/repositories/isv:ownCloud:community:8.1/CentOS_7/isv:ownCloud:community:8.1.repo /etc/yum.repos.d/
+# Install ownCloud stable repo
+ADD http://download.owncloud.org/download/repositories/stable/CentOS_7/ce:stable.repo /etc/yum.repos.d/
 
 # Install ownCloud and dependencies
 RUN yum -y install owncloud && yum clean all

@@ -1,6 +1,6 @@
 # ownCloud, w/ Apache and PHP, using MySQL on CentOS 7
 #
-# VERSION 0.8
+# VERSION 0.9
 
 FROM       centos:7
 MAINTAINER Mikael Karlsson <i8myshoes@gmail.com>

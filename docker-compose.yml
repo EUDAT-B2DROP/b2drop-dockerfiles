@@ -28,6 +28,7 @@ centos:
     - "./certs:/srv/certs:ro"
   links:
     - mariadb:db
+  stop_signal: SIGWINCH
 
 mariadb:
   image: centos/mariadb:latest

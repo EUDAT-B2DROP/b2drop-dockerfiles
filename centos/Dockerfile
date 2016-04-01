@@ -85,5 +85,6 @@ RUN chmod +x /dumb-init
 
 # Set wrapper script as entrypoint
 ADD ./wrapper.sh /wrapper.sh
+STOPSIGNAL SIGWINCH
 ENTRYPOINT ["/dumb-init", "-cv", "/wrapper.sh"]
 CMD ["-D", "FOREGROUND"]

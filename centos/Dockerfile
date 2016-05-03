@@ -91,7 +91,7 @@ VOLUME /var/www/html/owncloud/data
 EXPOSE 443
 
 # Get dumb-init
-ADD https://github.com/Yelp/dumb-init/releases/download/v1.0.1/dumb-init_1.0.1_amd64 /dumb-init
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64 /dumb-init
 RUN chmod +x /dumb-init
 
 # Set wrapper script as entrypoint

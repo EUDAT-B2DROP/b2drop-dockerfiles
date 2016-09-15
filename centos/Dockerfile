@@ -67,6 +67,12 @@ RUN sed -r -i '/<\/VirtualHost>/ i \  <IfModule mod_headers.c>\n\
 # Change DocumentRoot
 RUN sed -r -i '/^#?DocumentRoot/ { s/^#//; s;".*;"/var/www/html/owncloud"; }' /etc/httpd/conf.d/ssl.conf
 
+# Silence Apache signature
+RUN echo -e "\nServerSignature Off\nServerTokens Prod" >> /etc/httpd/conf/httpd.conf
+
+# Silence PHP advertising
+RUN sed -i '/^expose_php/ s/On/Off/' /etc/php.ini
+
 # Rewrite requests to HTTPS
 RUN echo -e "\nRewriteEngine On\n\
 RewriteCond %{HTTPS} off\n\

@@ -24,7 +24,7 @@ ADD http://download.owncloud.org/download/repositories/8.2/CentOS_7/ce:8.2.repo 
 # ADD http://download.owncloud.org/download/repositories/stable/CentOS_7/ce:stable.repo /etc/yum.repos.d/
 
 # Install ownCloud and dependencies
-RUN yum -y install owncloud && yum clean all
+RUN yum -y install owncloud-8.2* && yum clean all
 
 # Install SSL module
 RUN yum -y install mod_ssl && yum clean all

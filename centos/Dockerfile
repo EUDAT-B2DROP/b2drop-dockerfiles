@@ -1,9 +1,10 @@
-# ownCloud, w/ Apache and PHP, using MySQL on CentOS 7
+# ownCloud, w/ Apache and PHP, using MySQL, Redis and APCu on CentOS 7
 #
-# VERSION 0.9
+# VERSION 0.10
 
 FROM       centos:7
-MAINTAINER Mikael Karlsson <i8myshoes@gmail.com>
+
+LABEL maintainer "Mikael Karlsson <i8myshoes@gmail.com>"
 
 # Perform updates
 RUN yum -y update && yum clean all
@@ -15,7 +16,7 @@ RUN yum -y install epel-release && yum clean all
 RUN yum -y install https://centos7.iuscommunity.org/ius-release.rpm && yum clean all
 
 # Install PHP 5.6
-RUN yum -y install php56u php56u-mysqlnd && yum clean all
+RUN yum -y install php56u php56u-mysqlnd php56u-pecl-apcu php56u-pecl-redis && yum clean all
 
 # Install ownCloud 8.2 repo
 ADD http://download.owncloud.org/download/repositories/8.2/CentOS_7/ce:8.2.repo /etc/yum.repos.d/

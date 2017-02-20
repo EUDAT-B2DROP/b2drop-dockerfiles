@@ -34,6 +34,7 @@ centos:
     - "./user_shib:/var/www/html/owncloud/apps/user_shib"
   links:
     - mariadb:db
+    - redis:redis
   stop_signal: SIGWINCH
 
 mariadb:
@@ -47,3 +48,10 @@ mariadb:
     - MYSQL_DATABASE=owncloud
     - MYSQL_USER=dbuser
     - MYSQL_PASSWORD=dbpass
+
+redis:
+  image: library/redis:alpine
+  hostname: redis
+  domainname: localdomain
+  expose:
+    - "6379"
